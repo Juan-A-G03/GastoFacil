@@ -24,11 +24,11 @@ export const crearGasto = async (req, res) => {
 
 //obtener los gastos del usuario
 export const obtenerGastos = async (req, res) => {
-  const { usuarioId } = req.query;
+  const { id } = req.params; // <-- Cambia aquí
 
   try {
     const gastos = await prisma.gasto.findMany({
-      where: { usuarioId: parseInt(usuarioId) },
+      where: { usuarioId: parseInt(id) }, // <-- Cambia aquí
       include: {
         tipo: true,
       },
@@ -36,6 +36,7 @@ export const obtenerGastos = async (req, res) => {
 
     res.json(gastos);
   } catch (error) {
+    console.error("Error al obtener gastos:", error); // Opcional para depurar
     res.status(500).json({ error: "Error al obtener gastos" });
   }
 };

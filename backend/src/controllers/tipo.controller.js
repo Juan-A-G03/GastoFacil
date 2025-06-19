@@ -23,11 +23,24 @@ export const crearTipo = async (req, res) => {
 //obtener tipo de gastos
 export const obtenerTipos = async (req, res) => {
   const { usuarioId } = req.query;
+  let tipos = [];
 
   try {
-    const tipos = await prisma.tipoGasto.findMany({
-      where: { usuarioId: parseInt(usuarioId) },
-    });
+    if (usuarioId) {
+      tipos = await prisma.tipoGasto.findMany({
+        where: {
+          OR: [
+            { usuarioId: null },
+            { usuarioId: parseInt(usuarioId) }
+          ]
+        }
+      });
+    } else {
+      // Si no hay usuarioId, solo devuelve los generales
+      tipos = await prisma.tipoGasto.findMany({
+        where: { usuarioId: null }
+      });
+    }
 
     res.json(tipos);
   } catch (error) {

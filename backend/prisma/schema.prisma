@@ -25,10 +25,10 @@ model Usuario {
 
 model TipoGasto {
   id        Int     @id @default(autoincrement())
-  nombre    String
+  nombre    String @unique
   color     String
-  usuario   Usuario @relation(fields: [usuarioId], references: [id])
-  usuarioId Int
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
   gastos    Gasto[]
 }
 
