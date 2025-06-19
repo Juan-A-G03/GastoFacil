@@ -24,8 +24,30 @@
   border-radius: 16px;
   padding: 2rem 2.5rem;
   margin-bottom: 2rem;
-  min-width: 350px;
+  min-width: 700px;
+  max-width: 900px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Cabecera y filas tipo tabla */
+.dashboard-listado-header,
+.dashboard-listado-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1.5fr 1.5fr;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.dashboard-listado-header {
+  font-weight: bold;
+  color: #fff;
+  background: #2f2f2f;
+  padding: 0.7rem 0;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
 }
 
 .dashboard-listado ul {
@@ -34,19 +56,85 @@
   margin: 0;
 }
 
-.dashboard-listado li {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
+.dashboard-listado-row {
+  background: #434343;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  transition: background 0.2s;
 }
 
+.dashboard-listado-row:hover {
+  background: #3c3c3c;
+}
+
+.dashboard-listado-row span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botones pequeños */
+.dashboard-btn-small {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 5px;
+  border: none;
+  background: #2f2f2f;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 0.2rem;
+  transition: background 0.2s;
+}
+
+.dashboard-btn-small:hover {
+  background: #222;
+}
+
+.dashboard-btn-small.dashboard-form-guardar {
+  background: #40e050 !important;
+  color: #fff;
+}
+
+.dashboard-btn-small.dashboard-form-guardar:hover {
+  background: #2c9b37 !important;
+  color: #fff;
+}
+
+.dashboard-btn-small.dashboard-form-cancel {
+  background: #e74c3c;
+}
+
+.dashboard-btn-small.dashboard-form-cancel:hover {
+  background: #c0392b;
+}
+
+/* Inputs y selects del formulario y edición */
 .dashboard-form input,
-.dashboard-form select {
-  font-size: 1.2rem;
+.dashboard-form select,
+.dashboard-form-input,
+.dashboard-form-select {
+  font-size: 1.1rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.8rem;
   border-radius: 5px;
   border: 1px solid #ccc;
+  background: #3a3a3a;
+  color: #fff;
+  transition: background 0.2s, border-color 0.2s;
+  width: 100%;
+  max-width: 180px;
+}
+
+.dashboard-form-input:hover,
+.dashboard-form-select:hover,
+.dashboard-form input:hover,
+.dashboard-form select:hover {
+  background: #222;
+  border-color: #888;
 }
 
 .dashboard-form button {
@@ -64,46 +152,19 @@
   background: #2c9b37;
 }
 
-/* Puedes agregar esto al final de Dashboard.css */
-.dashboard-form-input,
-.dashboard-form-select {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 0.8rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.dashboard-form-button {
-  font-size: 1.1rem;
-  padding: 0.4rem 1.2rem;
-  border-radius: 6px;
-  border: none;
-  background: #40e050;
-  color: white;
-  cursor: pointer;
-  margin-left: 0.5rem;
-}
-
-.dashboard-form-button:hover {
-  background: #2c9b37;
-}
-
 .dashboard-form-cancel {
   background: #e74c3c;
-  color: white;
 }
 
 .dashboard-form-cancel:hover {
   background: #c0392b;
 }
 
-.dashboard-form-input:hover,
-.dashboard-form-select:hover,
-.dashboard-form input:hover,
-.dashboard-form select:hover {
-  background: #3a3a3a;
-  border-color: #888;
-  transition: background 0.2s, border-color 0.2s;
+/* Ajuste para inputs en edición dentro de la tabla */
+.dashboard-listado-row input,
+.dashboard-listado-row select {
+  width: 100%;
+  max-width: 160px;
+  margin: 0 auto;
+  text-align: center;
 }

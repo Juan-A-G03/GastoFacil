@@ -83,79 +83,100 @@ export default function Dashboard() {
   const total = gastos.reduce((suma, g) => suma + g.valor, 0);
 
   return (
-  <div className="dashboard-container">
-    <h2>Mis gastos en el mes de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h2>
+    <div className="dashboard-container">
+      <h2>Mis gastos en el mes de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h2>
 
-    <div className="dashboard-listado">
-      <ul>
-        {gastos.map((gasto) =>
-          editandoId === gasto.id ? (
-            <li key={gasto.id}>
-              <input
-                className="dashboard-form-input"
-                value={editNombre}
-                onChange={e => setEditNombre(e.target.value)}
-                placeholder="Nombre"
-              />
-              <input
-                className="dashboard-form-input"
-                value={editValor}
-                onChange={e => setEditValor(e.target.value)}
-                placeholder="Valor"
-              />
-              <select
-                className="dashboard-form-select"
-                value={editTipoId}
-                onChange={e => setEditTipoId(e.target.value)}
-              >
-                {tipos.map(tipo => (
-                  <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
-                ))}
-              </select>
-              <button className="dashboard-form-button" onClick={guardarEdicion}>Guardar</button>
-              <button className="dashboard-form-button dashboard-form-cancel" onClick={() => setEditandoId(null)}>Cancelar</button>
-            </li>
-          ) : (
-            <li key={gasto.id}>
-              {gasto.nombre} &nbsp;|&nbsp; {gasto.tipo?.nombre} &nbsp;|&nbsp; ${gasto.valor} &nbsp;|&nbsp; {new Date(gasto.fecha).toLocaleDateString()}
-              &nbsp;
-              <button onClick={() => eliminarGasto(gasto.id)}>❌</button>
-              &nbsp;
-              <button onClick={() => empezarEdicion(gasto)}>✏️</button>
-            </li>
-          )
-        )}
-      </ul>
+      <div className="dashboard-listado">
+        <div className="dashboard-listado-header">
+          <span>Nombre</span>
+          <span>Tipo</span>
+          <span>Valor</span>
+          <span>Fecha</span>
+          <span>Acciones</span>
+        </div>
+        <ul>
+          {gastos.map((gasto) =>
+            editandoId === gasto.id ? (
+              <li key={gasto.id} className="dashboard-listado-row">
+                <span>
+                  <input
+                    className="dashboard-form-input"
+                    value={editNombre}
+                    onChange={e => setEditNombre(e.target.value)}
+                    placeholder="Nombre"
+                  />
+                </span>
+                <span>
+                  <select
+                    className="dashboard-form-select"
+                    value={editTipoId}
+                    onChange={e => setEditTipoId(e.target.value)}
+                  >
+                    {tipos.map(tipo => (
+                      <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                    ))}
+                  </select>
+                </span>
+                <span>
+                  <input
+                    className="dashboard-form-input"
+                    value={editValor}
+                    onChange={e => setEditValor(e.target.value)}
+                    placeholder="Valor"
+                  />
+                </span>
+                <span>
+                  {new Date(gasto.fecha).toLocaleDateString()}
+                </span>
+                <span>
+                  <button className="dashboard-btn-small dashboard-form-guardar" onClick={guardarEdicion}>Guardar</button>
+                  <button className="dashboard-btn-small dashboard-form-cancel" onClick={() => setEditandoId(null)}>Cancelar</button>
+                </span>
+              </li>
+            ) : (
+              <li key={gasto.id} className="dashboard-listado-row">
+                <span>{gasto.nombre}</span>
+                <span>{gasto.tipo?.nombre}</span>
+                <span>${gasto.valor}</span>
+                <span>{new Date(gasto.fecha).toLocaleDateString()}</span>
+                <span>
+                  <button className="dashboard-btn-small" onClick={() => eliminarGasto(gasto.id)}>❌</button>
+                  <button className="dashboard-btn-small" onClick={() => empezarEdicion(gasto)}>✏️</button>
+                </span>
+              </li>
+            )
+          )}
+        </ul>
+      </div>
+
+      <form className="dashboard-form" onSubmit={e => { e.preventDefault(); agregarGasto(); }}>
+        <h3>Agregar nuevo gasto</h3>
+        <br />
+        <input
+          placeholder="Nombre del gasto"
+          value={nuevoNombre}
+          onChange={(e) => setNuevoNombre(e.target.value)}
+        />
+        <input
+          placeholder="Precio"
+          value={nuevoPrecio}
+          onChange={(e) => setNuevoPrecio(e.target.value)}
+        />
+        <select
+          value={nuevoTipoId}
+          onChange={(e) => setNuevoTipoId(e.target.value)}
+        >
+          <option value="">-- Tipo de gasto --</option>
+          {tipos.map((tipo) => (
+            <option key={tipo.id} value={tipo.id}>
+              {tipo.nombre}
+            </option>
+          ))}
+        </select>
+        <button type="submit">Agregar</button>
+      </form>
+
+      <h3>Total gastado: ${total}</h3>
     </div>
-
-    <form className="dashboard-form" onSubmit={e => { e.preventDefault(); agregarGasto(); }}>
-      <h3>Agregar nuevo gasto</h3>
-      <br></br>
-      <input
-        placeholder="Nombre del gasto"
-        value={nuevoNombre}
-        onChange={(e) => setNuevoNombre(e.target.value)}
-      />
-      <input
-        placeholder="Precio"
-        value={nuevoPrecio}
-        onChange={(e) => setNuevoPrecio(e.target.value)}
-      />
-      <select
-        value={nuevoTipoId}
-        onChange={(e) => setNuevoTipoId(e.target.value)}
-      >
-        <option value="">-- Tipo de gasto --</option>
-        {tipos.map((tipo) => (
-          <option key={tipo.id} value={tipo.id}>
-            {tipo.nombre}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Agregar</button>
-    </form>
-
-    <h3>Total gastado: ${total}</h3>
-  </div>
-);
+  );
 }

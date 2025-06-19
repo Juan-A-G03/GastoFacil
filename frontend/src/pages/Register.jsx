@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './Register.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,29 +28,28 @@ export default function Register() {
     }
   };
 
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Registrarse</h2>
-      <form onSubmit={handleRegister}>
+return (
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleRegister}>
+        <h2>Registrarse</h2>
         <div>
-          <label>Nombre:</label><br />
+          <label>Nombre:</label>
           <input value={nombre} onChange={(e) => setNombre(e.target.value)} required />
         </div>
         <div>
-          <label>Email:</label><br />
+          <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
         <div>
-          <label>Contraseña:</label><br />
+          <label>Contraseña:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        <br></br>
         <button type="submit">Registrarme</button>
+        <p>¿Ya tenés una cuenta?
+          <a href="/login"> Inicia sesión acá</a>
+        </p>
+        {mensaje && <p>{mensaje}</p>}
       </form>
-      <p>¿Ya tenés una cuenta? 
-        <a href="/login"> Inicia sesión acá</a>
-      </p>
-      {mensaje && <p>{mensaje}</p>}
     </div>
   );
 }
