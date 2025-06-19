@@ -69,3 +69,6 @@ Content-Type: application/json
 
 ### ❌ Eliminar gasto
 DELETE http://localhost:3000/api/gastos/1
+
+### 🔎 Obtener tipos de gasto (con usuarioId)
+GET http://localhost:3000/api/tipos?usuarioId=2

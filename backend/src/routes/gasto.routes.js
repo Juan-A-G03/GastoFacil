@@ -3,7 +3,7 @@ import { crearGasto, obtenerGastos, editarGasto, eliminarGasto } from "../contro
 
 const router = Router();
 
-router.get("/", obtenerGastos);
+router.get("/usuario/:id", obtenerGastos);
 router.post("/", crearGasto);
 router.put("/:id", editarGasto);
 router.delete("/:id", eliminarGasto);

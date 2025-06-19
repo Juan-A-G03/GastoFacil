@@ -25,11 +25,9 @@ export const crearUsuario = async (req, res) => {
 // Nota: En un entorno real, debería usar un sistema de autenticación más robusto.
 export const loginUsuario = async (req, res) => {
   const { email, password } = req.body;
-
   const usuario = await prisma.usuario.findUnique({ where: { email } });
   if (!usuario || usuario.password !== password) {
     return res.status(401).json({ error: "Credenciales incorrectas" });
   }
-
-  res.json({ mensaje: "Login correcto", usuarioId: usuario.id });
+  res.json({ mensaje: "Login correcto", usuario }); // <-- Cambia esto
 };

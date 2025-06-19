@@ -18,7 +18,10 @@
     "@prisma/client": "^6.10.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "prisma": "^6.10.1"
+    "prisma": "^6.10.1" 
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "devDependencies": {
     "dotenv": "^16.5.0",
