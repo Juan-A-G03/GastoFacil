@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './Dashboard.css';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+Chart.register(ArcElement, Tooltip, Legend);
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -68,7 +71,7 @@ export default function Dashboard() {
     setEditNombre(gasto.nombre);
     setEditValor(gasto.valor);
     setEditTipoId(gasto.tipoId);
-};
+  };
 
   const guardarEdicion = async () => {
     await axios.put(`${API_URL}/gastos/${editandoId}`, {
@@ -81,6 +84,31 @@ export default function Dashboard() {
   };
 
   const total = gastos.reduce((suma, g) => suma + g.valor, 0);
+
+  // Agrupa los gastos por tipo
+  const gastosPorTipo = tipos.map(tipo => {
+    const total = gastos
+      .filter(g => g.tipoId === tipo.id)
+      .reduce((sum, g) => sum + g.valor, 0);
+    return {
+      nombre: tipo.nombre,
+      total,
+      color: tipo.color || '#888' // Usa el color del tipo o un gris por defecto
+    };
+  }).filter(t => t.total > 0);
+
+  // Prepara los datos para Chart.js
+  const donutData = {
+    labels: gastosPorTipo.map(t => t.nombre),
+    datasets: [
+      {
+        data: gastosPorTipo.map(t => t.total),
+        backgroundColor: gastosPorTipo.map(t => t.color),
+        borderWidth: 2,
+        borderColor: "#fff"
+      }
+    ]
+  };
 
   return (
     <div className="dashboard-container">
@@ -177,6 +205,23 @@ export default function Dashboard() {
       </form>
 
       <h3>Total gastado: ${total}</h3>
+      <br />
+      <div className="dashboard-donut-container">
+        <h3 className="dashboard-donut-title">Gastos por categoría</h3>
+        <Doughnut
+          data={donutData}
+          options={{
+            plugins: {
+              legend: {
+                labels: {
+                  color: "#fff",
+                  font: { size: 16 }
+                }
+              }
+            }
+          }}
+        />
+      </div>
     </div>
   );
 }
