@@ -1,0 +1,109 @@
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */ /* Elimina o comenta esta línea */
+  background: #2e2e2e;
+  padding-top: 40px; /* Opcional: agrega espacio arriba */
+  padding-bottom: 40px; /* Opcional: agrega espacio abajo */
+}
+
+.dashboard-container h2,
+.dashboard-container h3 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.dashboard-listado {
+  background: #4e4e4e;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  min-width: 350px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.dashboard-listado ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-listado li {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.dashboard-form input,
+.dashboard-form select {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.dashboard-form button {
+  font-size: 1.1rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #40e050;
+  color: white;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.dashboard-form button:hover {
+  background: #2c9b37;
+}
+
+/* Puedes agregar esto al final de Dashboard.css */
+.dashboard-form-input,
+.dashboard-form-select {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.dashboard-form-button {
+  font-size: 1.1rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #40e050;
+  color: white;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.dashboard-form-button:hover {
+  background: #2c9b37;
+}
+
+.dashboard-form-cancel {
+  background: #e74c3c;
+  color: white;
+}
+
+.dashboard-form-cancel:hover {
+  background: #c0392b;
+}
+
+.dashboard-form-input:hover,
+.dashboard-form-select:hover,
+.dashboard-form input:hover,
+.dashboard-form select:hover {
+  background: #3a3a3a;
+  border-color: #888;
+  transition: background 0.2s, border-color 0.2s;
+}

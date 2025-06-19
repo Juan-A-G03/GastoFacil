@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import './Dashboard.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -82,22 +83,28 @@ export default function Dashboard() {
   const total = gastos.reduce((suma, g) => suma + g.valor, 0);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Mis gastos en el mes de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h2>
+  <div className="dashboard-container">
+    <h2>Mis gastos en el mes de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h2>
 
+    <div className="dashboard-listado">
       <ul>
         {gastos.map((gasto) =>
           editandoId === gasto.id ? (
-            <li key={gasto.id} style={{ marginBottom: "0.5rem" }}>
+            <li key={gasto.id}>
               <input
+                className="dashboard-form-input"
                 value={editNombre}
                 onChange={e => setEditNombre(e.target.value)}
+                placeholder="Nombre"
               />
               <input
+                className="dashboard-form-input"
                 value={editValor}
                 onChange={e => setEditValor(e.target.value)}
+                placeholder="Valor"
               />
               <select
+                className="dashboard-form-select"
                 value={editTipoId}
                 onChange={e => setEditTipoId(e.target.value)}
               >
@@ -105,24 +112,25 @@ export default function Dashboard() {
                   <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
                 ))}
               </select>
-              <button onClick={guardarEdicion}>Guardar</button>
-              <button onClick={() => setEditandoId(null)}>Cancelar</button>
+              <button className="dashboard-form-button" onClick={guardarEdicion}>Guardar</button>
+              <button className="dashboard-form-button dashboard-form-cancel" onClick={() => setEditandoId(null)}>Cancelar</button>
             </li>
           ) : (
-            <li key={gasto.id} style={{ marginBottom: "0.5rem" }}>
-              {gasto.nombre} - {gasto.tipo?.nombre} - ${gasto.valor} - {new Date(gasto.fecha).toLocaleDateString()}
+            <li key={gasto.id}>
+              {gasto.nombre} &nbsp;|&nbsp; {gasto.tipo?.nombre} &nbsp;|&nbsp; ${gasto.valor} &nbsp;|&nbsp; {new Date(gasto.fecha).toLocaleDateString()}
               &nbsp;
               <button onClick={() => eliminarGasto(gasto.id)}>❌</button>
               &nbsp;
-              <button onClick={() => empezarEdicion(gasto)}>📝</button>
+              <button onClick={() => empezarEdicion(gasto)}>✏️</button>
             </li>
           )
         )}
       </ul>
+    </div>
 
-      <hr />
-
+    <form className="dashboard-form" onSubmit={e => { e.preventDefault(); agregarGasto(); }}>
       <h3>Agregar nuevo gasto</h3>
+      <br></br>
       <input
         placeholder="Nombre del gasto"
         value={nuevoNombre}
@@ -144,12 +152,10 @@ export default function Dashboard() {
           </option>
         ))}
       </select>
+      <button type="submit">Agregar</button>
+    </form>
 
-      <button onClick={agregarGasto}>Agregar</button>
-
-      <hr />
-
-      <h3>Total gastado: ${total}</h3>
-    </div>
-  );
+    <h3>Total gastado: ${total}</h3>
+  </div>
+);
 }
