@@ -1,0 +1,20 @@
+### ✅ Crear nuevo usuario
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Juan Augusto Gallucci",
+  "email": "galluccij15@gmail.com",
+  "password": "juanchi03"
+}
+
+###
+
+### 🔐 Login del usuario
+POST http://localhost:3000/api/usuarios/login
+Content-Type: application/json
+
+{
+  "email": "galluccij15@gmail.com",
+  "password": "juanchi03"
+}

@@ -5,7 +5,6 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 // backend/prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,3 +13,32 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  email     String    @unique
+  password  String
+  gastos    Gasto[]
+  tipos     TipoGasto[]
+}
+
+model TipoGasto {
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  gastos    Gasto[]
+}
+
+model Gasto {
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  valor      Float
+  fecha      DateTime  @default(now())
+  usuario    Usuario   @relation(fields: [usuarioId], references: [id])
+  usuarioId  Int
+  tipo       TipoGasto @relation(fields: [tipoId], references: [id])
+  tipoId     Int
+}
+
