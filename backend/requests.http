@@ -18,3 +18,54 @@ Content-Type: application/json
   "email": "galluccij15@gmail.com",
   "password": "juanchi03"
 }
+
+###TIPO GASTOS
+
+### 🟢 Crear tipo con color
+POST http://localhost:3000/api/tipos
+Content-Type: application/json
+
+{
+  "nombre": "Kiosko",
+  "color": "#ffcc00",
+  "usuarioId": 1
+}
+
+### ✏️ Editar tipo
+PUT http://localhost:3000/api/tipos/1
+Content-Type: application/json
+
+{
+  "nombre": "Supermercado",
+  "color": "#00ccff"
+}
+
+### ❌ Eliminar tipo
+DELETE http://localhost:3000/api/tipos/1
+
+
+### GASTOS
+
+### Crear un gasto
+POST http://localhost:3000/api/gastos
+Content-Type: application/json
+
+{
+   "nombre": "Fanta",
+  "valor": 350,
+  "usuarioId": 2,
+  "tipoId": 2
+}
+
+### ✏️ Editar gasto
+PUT http://localhost:3000/api/gastos/1
+Content-Type: application/json
+
+{
+  "nombre": "Coca Cola",
+  "valor": 300,
+  "tipoId": 2
+}
+
+### ❌ Eliminar gasto
+DELETE http://localhost:3000/api/gastos/1
