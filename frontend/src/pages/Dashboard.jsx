@@ -20,14 +20,13 @@ export default function Dashboard() {
 
   const mesActual = new Date().toLocaleString("es-ES", { month: "long" });
 
-  //const usuarioId = JSON.parse(localStorage.getItem("usuario"))?.id;
   const usuarioGuardado = localStorage.getItem("usuario");
   const usuarioId = usuarioGuardado && usuarioGuardado !== "undefined"
-  ? JSON.parse(usuarioGuardado)?.id
-  : null;
+    ? JSON.parse(usuarioGuardado)?.id
+    : null;
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    console.log("usuarioId en useEffect:", usuarioId);
     if (usuarioId) {
       cargarTipos();
       cargarGastos();
@@ -35,13 +34,16 @@ export default function Dashboard() {
   }, [usuarioId]);
 
   const cargarGastos = async () => {
-    const res = await axios.get(`${API_URL}/gastos/usuario/${usuarioId}`);
+    const res = await axios.get(`${API_URL}/gastos/usuario/${usuarioId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     setGastos(res.data);
   };
 
   const cargarTipos = async () => {
-    const res = await axios.get(`${API_URL}/tipos?usuarioId=${usuarioId}`);
-    console.log("Tipos recibidos:", res.data);
+    const res = await axios.get(`${API_URL}/tipos?usuarioId=${usuarioId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     setTipos(res.data);
   };
 
@@ -52,7 +54,9 @@ export default function Dashboard() {
       nombre: nuevoNombre,
       valor: parseFloat(nuevoPrecio),
       tipoId: parseInt(nuevoTipoId),
-      usuarioId,
+      usuarioId, 
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     setNuevoNombre("");
@@ -62,7 +66,9 @@ export default function Dashboard() {
   };
 
   const eliminarGasto = async (id) => {
-    await axios.delete(`${API_URL}/gastos/${id}`);
+    await axios.delete(`${API_URL}/gastos/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     cargarGastos();
   };
 
@@ -78,6 +84,8 @@ export default function Dashboard() {
       nombre: editNombre,
       valor: parseFloat(editValor),
       tipoId: parseInt(editTipoId),
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
     });
     setEditandoId(null);
     cargarGastos();
@@ -93,7 +101,7 @@ export default function Dashboard() {
     return {
       nombre: tipo.nombre,
       total,
-      color: tipo.color || '#888' // Usa el color del tipo o un gris por defecto
+      color: tipo.color || '#888'
     };
   }).filter(t => t.total > 0);
 
@@ -164,7 +172,23 @@ export default function Dashboard() {
             ) : (
               <li key={gasto.id} className="dashboard-listado-row">
                 <span>{gasto.nombre}</span>
-                <span>{gasto.tipo?.nombre}</span>
+                <span style={{ display: "flex", alignItems: "center", gap: "0.5rem", justifyContent: "center" }}>
+                  {gasto.tipo?.nombre}
+                  {gasto.tipo?.color && (
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: 16,
+                        height: 16,
+                        borderRadius: "50%",
+                        background: gasto.tipo.color,
+                        border: "1.5px solid #fff",
+                        marginLeft: 6
+                      }}
+                      title={gasto.tipo.color}
+                    />
+                  )}
+                </span>
                 <span>${gasto.valor}</span>
                 <span>{new Date(gasto.fecha).toLocaleDateString()}</span>
                 <span>

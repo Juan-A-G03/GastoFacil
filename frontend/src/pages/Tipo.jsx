@@ -18,12 +18,16 @@ export default function Tipo() {
     ? JSON.parse(usuarioGuardado)?.id
     : null;
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     if (usuarioId) cargarTipos();
   }, [usuarioId]);
 
   const cargarTipos = async () => {
-    const res = await axios.get(`${API_URL}/tipos?usuarioId=${usuarioId}`);
+    const res = await axios.get(`${API_URL}/tipos?usuarioId=${usuarioId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     setTipos(res.data);
   };
 
@@ -34,6 +38,8 @@ export default function Tipo() {
       nombre: nuevoNombre,
       color: nuevoColor,
       usuarioId,
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
     });
     setNuevoNombre("");
     setNuevoColor("#888888");
@@ -41,7 +47,9 @@ export default function Tipo() {
   };
 
   const eliminarTipo = async (id) => {
-    await axios.delete(`${API_URL}/tipos/${id}`);
+    await axios.delete(`${API_URL}/tipos/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     cargarTipos();
   };
 
@@ -56,6 +64,8 @@ export default function Tipo() {
     await axios.put(`${API_URL}/tipos/${editandoId}`, {
       nombre: editNombre,
       color: editColor,
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
     });
     setEditandoId(null);
     cargarTipos();
