@@ -17,9 +17,8 @@ export default function Login() {
         password,
       });
 
-      // Suponiendo que el backend responde con { usuario: {...} }
-      const usuario = res.data.usuario;
-      localStorage.setItem('usuario', JSON.stringify(usuario));
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
       setMensaje('✅ Login exitoso');
 
       // Redirigir o navegar (si usás react-router)

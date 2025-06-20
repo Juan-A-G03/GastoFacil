@@ -19,6 +19,7 @@ export default function Register() {
         password,
       });
 
+      localStorage.setItem('token', res.data.token);
       localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
       setMensaje('✅ Registro exitoso');
       window.location.href = '/';
