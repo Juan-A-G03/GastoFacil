@@ -1,0 +1,70 @@
+.navbar-toggle {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1101;
+  background: #2f2f2f;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.navbar-toggle:hover {
+  background: #222;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: -220px;
+  width: 200px;
+  height: 100vh;
+  background: #222;
+  color: #fff;
+  z-index: 1102;
+  padding-top: 2.5rem;
+  transition: left 0.3s;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+}
+.navbar.open {
+  left: 0;
+}
+.navbar-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navbar li {
+  margin: 1.2rem 0 1.2rem 1.2rem;
+}
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.15rem;
+  transition: color 0.2s;
+}
+.navbar a.active,
+.navbar a:hover {
+  color: #40e050;
+}
+.navbar-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 1100;
+}

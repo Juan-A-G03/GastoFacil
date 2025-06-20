@@ -1,0 +1,199 @@
+.tipo-container {
+  background: #2f2f2f;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  margin: 40px auto 2rem auto;
+  min-width: 400px;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.tipo-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.tipo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.tipo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #434343;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  transition: background 0.2s;
+  gap: 1.2rem;
+}
+
+.tipo-row:hover {
+  background: #3c3c3c;
+}
+
+.tipo-nombre {
+  flex: 1 1 0;
+  min-width: 100px;
+  text-align: left;
+  font-size: 1.1rem;
+  padding: 0.5rem 0.8rem;
+  width: 120px;
+  margin-right: 8px;
+  box-sizing: border-box;
+}
+
+/* Preview del color (no editable) */
+.tipo-color-preview {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  /* border: 1px solid #ccc; */
+  margin-right: 24px;
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Input de color en edición */
+.tipo-row input[type="color"] {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-right: 24px;
+  margin-left: 8px;
+  background: transparent;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  /* El truco para Chrome, Edge, Opera */
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 6px;
+  }
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+  }
+  /* El truco para Firefox */
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+  }
+}
+
+/* Input de texto en edición y en formulario */
+.tipo-row input[type="text"],
+.tipo-form input[type="text"] {
+  font-size: 1.1rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #3a3a3a;
+  color: #fff;
+  width: 120px;
+  margin-right: 8px;
+  box-sizing: border-box;
+}
+
+.tipo-row-buttons {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.tipo-btn {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 5px;
+  border: none;
+  background: #2f2f2f;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tipo-btn:hover {
+  background: #222;
+}
+
+.tipo-btn-green {
+  background: #40e050 !important;
+  color: #fff;
+}
+
+.tipo-btn-green:hover {
+  background: #2c9b37 !important;
+}
+
+.tipo-btn-cancel {
+  background: #e74c3c;
+}
+
+.tipo-btn-cancel:hover {
+  background: #c0392b;
+}
+
+.tipo-form {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  gap: 8px;
+}
+
+.tipo-form input[type="color"] {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+}
+/* Para que se vea igual en todos los navegadores */
+.tipo-form input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 6px;
+}
+.tipo-form input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+.tipo-form input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+.tipo-form button {
+  font-size: 1.1rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #40e050;
+  color: white;
+  cursor: pointer;
+}
+
+.tipo-form button:hover {
+  background: #2c9b37;
+}
