@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Minecraftia';
+  src: url('/fonts/Minecraftia-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -22,16 +29,22 @@ a:hover {
   color: #535bf2;
 }
 
-body, #root {
+html, body, #root {
+  width: 100vw;
   min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* o center si quieres centrar vertical y horizontal */
-  background: #484848; /* o el color de fondo general que prefieras */
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  /* Esto fuerza a que todo ocupe el ancho de la pantalla y no haya scroll horizontal */
+}
+
+body, #root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* O center si quieres centrar todo, pero stretch es más responsive */
+  justify-content: flex-start;
+  background: #FFFEDB;
 }
 
 h1 {

@@ -1,11 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import Navbar from '../components/Navbar'; // ajustá el path si está en otra carpeta
 import './Dashboard.css';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 Chart.register(ArcElement, Tooltip, Legend);
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+function darkenColor(hex, percent) {
+  // hex: "#RRGGBB", percent: 0.2 para oscurecer 20%
+  let r = parseInt(hex.slice(1,3),16);
+  let g = parseInt(hex.slice(3,5),16);
+  let b = parseInt(hex.slice(5,7),16);
+  r = Math.floor(r * (1 - percent));
+  g = Math.floor(g * (1 - percent));
+  b = Math.floor(b * (1 - percent));
+  return `rgb(${r},${g},${b})`;
+}
 
 export default function Dashboard() {
   const [gastos, setGastos] = useState([]);
@@ -17,6 +29,7 @@ export default function Dashboard() {
   const [editNombre, setEditNombre] = useState("");
   const [editValor, setEditValor] = useState("");
   const [editTipoId, setEditTipoId] = useState("");
+  const chartRef = useRef();
 
   const mesActual = new Date().toLocaleString("es-ES", { month: "long" });
 
@@ -112,6 +125,7 @@ export default function Dashboard() {
       {
         data: gastosPorTipo.map(t => t.total),
         backgroundColor: gastosPorTipo.map(t => t.color),
+        hoverBackgroundColor: gastosPorTipo.map(t => darkenColor(t.color, 0.25)), // oscurece 25%
         borderWidth: 2,
         borderColor: "#fff"
       }
@@ -119,9 +133,11 @@ export default function Dashboard() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="dashboard-container">
       <h2>Mis gastos en el mes de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h2>
-
+      <br />
       <div className="dashboard-listado">
         <div className="dashboard-listado-header">
           <span>Nombre</span>
@@ -199,53 +215,91 @@ export default function Dashboard() {
             )
           )}
         </ul>
-      </div>
-
-      <form className="dashboard-form" onSubmit={e => { e.preventDefault(); agregarGasto(); }}>
-        <h3>Agregar nuevo gasto</h3>
-        <br />
-        <input
-          placeholder="Nombre del gasto"
-          value={nuevoNombre}
-          onChange={(e) => setNuevoNombre(e.target.value)}
-        />
-        <input
-          placeholder="Precio"
-          value={nuevoPrecio}
-          onChange={(e) => setNuevoPrecio(e.target.value)}
-        />
-        <select
-          value={nuevoTipoId}
-          onChange={(e) => setNuevoTipoId(e.target.value)}
+        <form
+          className="dashboard-listado-row"
+          style={{ marginTop: 8 }}
+          onSubmit={e => { e.preventDefault(); agregarGasto(); }}
         >
-          <option value="">-- Tipo de gasto --</option>
-          {tipos.map((tipo) => (
-            <option key={tipo.id} value={tipo.id}>
-              {tipo.nombre}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Agregar</button>
-      </form>
-
+          <span>
+            <input
+              className="dashboard-form-input"
+              placeholder="Nombre del gasto"
+              value={nuevoNombre}
+              onChange={(e) => setNuevoNombre(e.target.value)}
+            />
+          </span>
+          <span>
+            <select
+              className="dashboard-form-select"
+              value={nuevoTipoId}
+              onChange={(e) => setNuevoTipoId(e.target.value)}
+            >
+              <option value="">-- Tipo de gasto --</option>
+              {tipos.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>
+                  {tipo.nombre}
+                </option>
+              ))}
+            </select>
+          </span>
+          <span>
+            <input
+              className="dashboard-form-input"
+              placeholder="Precio"
+              value={nuevoPrecio}
+              onChange={(e) => setNuevoPrecio(e.target.value)}
+            />
+          </span>
+          <span>
+            {/* Deja vacío o pon un guion para la columna de fecha */}
+            –
+          </span>
+          <span>
+            <button className="dashboard-btn-small" type="submit">
+              Agregar
+            </button>
+          </span>
+        </form>
+      </div>
       <h3>Total gastado: ${total}</h3>
-      <br />
       <div className="dashboard-donut-container">
-        <h3 className="dashboard-donut-title">Gastos por categoría</h3>
-        <Doughnut
-          data={donutData}
-          options={{
-            plugins: {
-              legend: {
-                labels: {
-                  color: "#fff",
-                  font: { size: 16 }
+        <div className="dashboard-donut-title">Gastos por categoría</div>
+        <div className="dashboard-donut-content">
+          <Doughnut
+            ref={chartRef}
+            data={donutData}
+            options={{
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  bodyFont: { size: 18 },
+                  callbacks: {
+                    title: () => [],
+                    label: function(context) {
+                      return `${context.label}: $${context.parsed}`;
+                    }
+                  }
                 }
               }
-            }
-          }}
-        />
+            }}
+          />
+          <div className="dashboard-donut-legend">
+            {gastosPorTipo.map((tipo) => (
+              <div key={tipo.nombre} className="dashboard-donut-legend-item">
+                <span
+                  className="dashboard-donut-legend-color"
+                  style={{ background: tipo.color }}
+                />
+                <span className="dashboard-donut-legend-label">{tipo.nombre}</span>
+                <span className="dashboard-donut-legend-total">
+                  ${tipo.total}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
+    </>
   );
 }

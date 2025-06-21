@@ -7,15 +7,30 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <>
+    <header className={`navbar-header${open ? " navbar-open" : ""}`}>
+      <div className="navbar-logo">
+        <img
+          src="/grafico.png"
+          alt="Logo"
+          style={{
+            height: "2em",
+            width: "2em",
+            verticalAlign: "middle",
+            marginRight: "0.6em"
+          }}
+        />
+        <span style={{ display: "inline-block", marginTop: "0.18em" }}>
+          GastoFacil <span style={{ fontSize: "1em" }}>↑↓</span>
+        </span>
+      </div>
       <button
         className="navbar-toggle"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen(true)}
         aria-label="Abrir menú"
       >
         ☰
       </button>
-      <nav className={`navbar ${open ? "open" : ""}`}>
+      <nav className={`navbar-slide ${open ? "open" : ""}`}>
         <button className="navbar-close" onClick={() => setOpen(false)}>
           ×
         </button>
@@ -40,8 +55,7 @@ export default function Navbar() {
           </li>
         </ul>
       </nav>
-      {/* Fondo oscuro cuando el menú está abierto */}
       {open && <div className="navbar-backdrop" onClick={() => setOpen(false)} />}
-    </>
+    </header>
   );
 }

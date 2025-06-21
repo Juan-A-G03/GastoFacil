@@ -1,13 +1,14 @@
 .dashboard-container {
   width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 120px;
+  padding-bottom: 40px;
+  background: #FFFEDB;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
-  /* justify-content: center; */ /* Elimina o comenta esta línea */
-  background: transparent;
-  padding-top: 40px; /* Opcional: agrega espacio arriba */
-  padding-bottom: 40px; /* Opcional: agrega espacio abajo */
 }
 
 .dashboard-container h2,
@@ -15,16 +16,17 @@
   font-size: 2rem;
   text-align: center;
   margin-bottom: 1rem;
+  color: #2f2f2f; /* <-- color igual al fondo del donut y listado */
 }
 
 .dashboard-listado {
+  width: 100%;
+  max-width: 1100px; /* antes 900px */
+  min-width: 0;
   background: #2f2f2f;
   border-radius: 16px;
-  padding: 2rem 2.5rem;
+  padding: 2rem 4rem; /* antes era 2.5rem */
   margin-bottom: 2rem;
-  width: 100%;
-  max-width: 900px;
-  min-width: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
@@ -32,8 +34,8 @@
 .dashboard-listado-header,
 .dashboard-listado-row {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1.5fr 1.5fr;
-  gap: 0.5rem;
+  grid-template-columns: 2fr 2.2fr 1fr 1.5fr 1.5fr; /* la segunda columna (Tipo) ahora es más ancha */
+  gap: 2.2rem; /* un poco más de separación */
   align-items: center;
   text-align: center;
 }
@@ -163,35 +165,96 @@
 .dashboard-listado-row input,
 .dashboard-listado-row select {
   width: 100%;
-  max-width: 160px;
+  max-width: 260px; /* antes 220px */
   margin: 0 auto;
   text-align: center;
 }
 
 /* Dashboard Donut Chart */
 .dashboard-donut-container {
-  width: 350px;
-  margin: 3rem auto 4rem auto;
-  background: #2f2f2f; /* Igual que el índice del listado */
-  border-radius: 16px;
-  padding: 24px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Asegura que el título quede arriba */
   align-items: center;
-  padding-bottom: 24px; /* Espacio adicional abajo */
+  justify-content: center;
+  width: 100%;
+  max-width: 1100px;        /* Más ancho */
+  margin: 0 auto 4rem auto;
+  background: #2f2f2f;
+  border-radius: 16px;
+  padding: 40px 40px 32px 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  gap: 3.5rem;              /* Más espacio entre gráfico y leyenda */
 }
-
-
 
 .dashboard-donut-title {
   text-align: center;
-  color: #fff;
-  font-size: 1.35rem;
-  margin-bottom: 1.2rem;
+  width: 100%;
+  color: #FFFEDB;
+  font-size: 2.5rem;
+  margin-bottom: 2.2rem;
   letter-spacing: 0.5px;
 }
 
-.dashboard-donut-container canvas {
-  margin-bottom: 2rem; /* Ajusta el valor a tu gusto */
+.dashboard-donut-title,
+.dashboard-donut-container h3 {
+  color: #FFFEDB !important;
+}
+
+.dashboard-donut-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4.5rem;
+  width: 100%;
+  min-height: 440px;
+}
+
+.dashboard-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-left: 2.5rem;
+  min-width: 220px;
+}
+
+.dashboard-donut-legend-item {
+  display: grid;
+  grid-template-columns: 28px 140px 120px; /* Fija el ancho de la columna de label y valor */
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.25rem;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+}
+
+.dashboard-donut-legend-color {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid #fff;
+}
+
+.dashboard-donut-legend-label {
+  text-align: left;
+  justify-self: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-donut-legend-total {
+  font-weight: bold;
+  text-align: right;
+  justify-self: end;
+  min-width: 60px;
+}
+
+.dashboard-donut-content canvas {
+  width: 420px !important;   /* MÁS grande */
+  height: 420px !important;
+  max-width: 100%;
+  margin-bottom: 0;
+  display: block;
 }

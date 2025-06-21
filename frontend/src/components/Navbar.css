@@ -1,70 +1,144 @@
-.navbar-toggle {
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  z-index: 1101;
-  background: #2f2f2f;
-  color: #fff;
-  border: none;
-  font-size: 2rem;
-  border-radius: 8px;
-  padding: 0.3rem 0.8rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 .navbar-toggle:hover {
   background: #222;
 }
 
-.navbar {
+/* Header principal: logo a la izq, toggle a la der */
+.navbar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
-  left: -220px;
-  width: 200px;
-  height: 100vh;
-  background: #222;
+  left: 0;
+  width: 100%;
+  min-width: 0;
+  z-index: 1200;
+  background: #232323;
+  padding: 14px 44px;
+  box-sizing: border-box;
+}
+
+/* Logo solo fuente Minecraftia */
+.navbar-logo {
+  display: flex;
+  align-items: flex-end; /* Esto baja el texto respecto al logo */
+  font-family: 'Minecraftia', monospace;
+  font-size: 2rem; /* Ajusta este valor para igualar el tamaño al logo */
   color: #fff;
-  z-index: 1102;
-  padding-top: 2.5rem;
-  transition: left 0.3s;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+/* Botón hamburguesa a la derecha */
+.navbar-toggle {
+  z-index: 1300;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 6px 12px;
+  margin-left: auto;
+}
+
+.navbar-toggle:hover {
+  background: #222;
+}
+
+/* Menú deslizable desde la derecha */
+.navbar-slide {
+  position: fixed;
+  top: 0;
+  right: -320px; /* igual que width */
+  width: 250px;
+  height: 100vh;
+  background: #232323;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  transition: right 0.3s cubic-bezier(.4,0,.2,1);
+  z-index: 1201;
   display: flex;
   flex-direction: column;
+  padding: 32px 24px 24px 24px;
+  pointer-events: none;
+  /* NO uses left, margin-left, ni nada más */
+  opacity: 0.99; /* Para evitar bugs de renderizado en algunos navegadores */
 }
-.navbar.open {
-  left: 0;
+
+.navbar-slide.open {
+  right: 0;
+  pointer-events: auto;
+  opacity: 1;
 }
+
+/* Botón cerrar menú */
 .navbar-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   background: none;
   border: none;
   color: #fff;
   font-size: 1.5rem;
+  align-self: flex-end;
   cursor: pointer;
+  margin-bottom: 2rem;
+  padding: 4px 10px;
 }
-.navbar ul {
+
+/* Lista de links del menú */
+.navbar-slide ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.navbar li {
-  margin: 1.2rem 0 1.2rem 1.2rem;
+
+.navbar-slide li {
+  margin-bottom: 1.2rem;
 }
-.navbar a {
+
+.navbar-slide a {
   color: #fff;
+  font-size: 1.1rem;
   text-decoration: none;
-  font-size: 1.15rem;
   transition: color 0.2s;
 }
-.navbar a.active,
-.navbar a:hover {
-  color: #40e050;
+
+.navbar-slide a.active,
+.navbar-slide a:hover {
+  font-weight: bold;
+  color: #ffd54f;
 }
+
+/* Fondo oscuro cuando el menú está abierto */
 .navbar-backdrop {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.2);
   z-index: 1100;
+}
+
+@media (max-width: 600px) {
+  .dashboard-listado {
+    padding: 1rem 0.5rem;
+    max-width: 100vw;
+  }
+  .dashboard-donut-container {
+    width: 98vw;
+    min-width: 0;
+    max-width: 100vw;
+    padding: 12px 2vw;
+  }
+  .navbar-header {
+    padding: 10px 10px;
+  }
+  .navbar-slide {
+    width: 90vw;
+    right: -90vw;
+    padding: 24px 10px 10px 10px;
+  }
+  .navbar-slide.open {
+    right: 0;
+  }
+}
+
+.navbar-header.navbar-open .navbar-toggle {
+  display: none;
 }
