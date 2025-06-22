@@ -72,3 +72,7 @@ DELETE http://localhost:3000/api/gastos/1
 
 ### 🔎 Obtener tipos de gasto (con usuarioId)
 GET http://localhost:3000/api/tipos?usuarioId=2
+
+### 🔎 Obtener todos los gastos
+GET http://localhost:3000/api/gastos/historico/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnYWxsdWNjaWoxNUBnbWFpbC5jb20iLCJpYXQiOjE3NTA1NDc0MzMsImV4cCI6MTc1MTE1MjIzM30.BrbwknJf4h1rW2Uv1GTnqfbraFXR1NHmlsOJNyLQvpA

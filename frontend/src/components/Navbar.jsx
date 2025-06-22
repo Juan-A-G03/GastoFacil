@@ -53,6 +53,15 @@ export default function Navbar() {
               Tipos de gastos
             </Link>
           </li>
+          <li>
+            <Link
+              to="/historico"
+              className={location.pathname === "/historico" ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
+              Histórico
+            </Link>
+          </li>
         </ul>
       </nav>
       {open && <div className="navbar-backdrop" onClick={() => setOpen(false)} />}

@@ -104,11 +104,23 @@ export default function Dashboard() {
     cargarGastos();
   };
 
-  const total = gastos.reduce((suma, g) => suma + g.valor, 0);
+  // Obtén el mes y año actual
+  const now = new Date();
+  const mesActualNum = now.getMonth();
+  const anioActual = now.getFullYear();
 
-  // Agrupa los gastos por tipo
+  // Filtra los gastos del mes y año actual
+  const gastosMesActual = gastos
+    .filter(g => {
+      const fecha = new Date(g.fecha);
+      return fecha.getMonth() === mesActualNum && fecha.getFullYear() === anioActual;
+    })
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+  const total = gastosMesActual.reduce((suma, g) => suma + g.valor, 0);
+
   const gastosPorTipo = tipos.map(tipo => {
-    const total = gastos
+    const total = gastosMesActual
       .filter(g => g.tipoId === tipo.id)
       .reduce((sum, g) => sum + g.valor, 0);
     return {
@@ -147,7 +159,7 @@ export default function Dashboard() {
           <span>Acciones</span>
         </div>
         <ul>
-          {gastos.map((gasto) =>
+          {gastosMesActual.map((gasto) =>
             editandoId === gasto.id ? (
               <li key={gasto.id} className="dashboard-listado-row">
                 <span>

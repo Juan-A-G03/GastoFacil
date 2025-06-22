@@ -76,3 +76,28 @@ export const eliminarGasto = async (req, res) => {
     res.status(500).json({ error: "Error al eliminar gasto" });
   }
 };
+
+// Obtener gastos agrupados por mes y categoría
+export const obtenerHistoricoPorMes = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const gastos = await prisma.gasto.findMany({
+      where: { usuarioId: parseInt(id) },
+      include: { tipo: true },
+      orderBy: { fecha: 'desc' }
+    });
+
+    // Agrupa por mes/año
+    const agrupado = {};
+    gastos.forEach(g => {
+      const fecha = new Date(g.fecha);
+      const key = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+      if (!agrupado[key]) agrupado[key] = [];
+      agrupado[key].push(g);
+    });
+
+    res.json(agrupado);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener histórico" });
+  }
+};
