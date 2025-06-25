@@ -25,11 +25,12 @@ model Usuario {
 
 model TipoGasto {
   id        Int     @id @default(autoincrement())
-  nombre    String @unique
+  nombre    String 
   color     String
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])
   usuarioId Int?
   gastos    Gasto[]
+  @@unique([nombre, usuarioId])
 }
 
 model Gasto {

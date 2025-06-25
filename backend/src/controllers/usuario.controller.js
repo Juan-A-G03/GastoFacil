@@ -33,6 +33,7 @@ export const crearUsuario = async (req, res) => {
   }); //crea el user
 
   // Crea las categorías por defecto para este usuario
+  try {
   await Promise.all(
     CATEGORIAS_POR_DEFECTO.map(cat =>
       prisma.tipoGasto.create({
@@ -43,7 +44,10 @@ export const crearUsuario = async (req, res) => {
         }
       })
     )
-  );
+  );} catch (error) {
+    console.error("Error al crear categorías por defecto:", error);
+    return res.status(500).json({ error: "Error al crear categorías por defecto" });
+  }
 
   // Genera token al registrar
   const token = jwt.sign({ id: nuevo.id, email: nuevo.email }, JWT_SECRET, { expiresIn: "7d" });

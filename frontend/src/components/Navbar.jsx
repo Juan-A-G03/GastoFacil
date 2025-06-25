@@ -1,14 +1,26 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    setOpen(false);
+    navigate("/login");
+  }
 
   return (
     <header className={`navbar-header${open ? " navbar-open" : ""}`}>
-      <div className="navbar-logo">
+      <Link
+        to="/"
+        className="navbar-logo"
+        style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+      >
         <img
           src="/grafico.png"
           alt="Logo"
@@ -22,7 +34,7 @@ export default function Navbar() {
         <span style={{ display: "inline-block", marginTop: "0.18em" }}>
           GastoFacil <span style={{ fontSize: "1em" }}>↑↓</span>
         </span>
-      </div>
+      </Link>
       <button
         className="navbar-toggle"
         onClick={() => setOpen(true)}
@@ -61,6 +73,13 @@ export default function Navbar() {
             >
               Histórico
             </Link>
+          </li>
+          <li>
+            <button
+              className="navbar-link navbar-logout" onClick={handleLogout}
+            >
+              Cerrar sesión
+            </button>
           </li>
         </ul>
       </nav>
