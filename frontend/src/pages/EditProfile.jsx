@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import "./EditProfile.css"; // Importa el CSS del dashboard
+import "./EditProfile.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,18 +18,31 @@ export default function EditProfile() {
   const usuarioId = usuario?.id;
 
   useEffect(() => {
-    // Solo inicializa si los campos están vacíos
     if (!nombre && usuario?.nombre) setNombre(usuario.nombre);
     if (!email && usuario?.email) setEmail(usuario.email);
-    if (!avatarPreview && usuario?.avatar) setAvatarPreview(usuario.avatar);
+    // NO hagas setAvatarPreview(usuario.avatar)
     // eslint-disable-next-line
   }, []);
+
+  const BASE_URL = API_URL.replace("/api", "");
+  const currentAvatar = avatarPreview
+    ? avatarPreview
+    : usuario?.avatar
+    ? `${BASE_URL}${usuario.avatar}`
+    : "/default-avatar.jpg";
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatar(file);
       setAvatarPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleAvatarChange({ target: { files: e.dataTransfer.files } });
     }
   };
 
@@ -53,23 +66,25 @@ export default function EditProfile() {
         }
       );
 
-      // Si hay avatar, súbelo aparte
+      let newAvatar = usuario.avatar;
+      // Si hay avatar, súbelo aparte y usa la ruta real
       if (avatar) {
         const avatarData = new FormData();
         avatarData.append("avatar", avatar);
-        await axios.put(
+        const res = await axios.put(
           `${API_URL}/usuarios/${usuarioId}/avatar`,
           avatarData,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+        newAvatar = res.data.usuario.avatar;
       }
 
       setMensaje("Perfil actualizado");
       localStorage.setItem(
         "usuario",
-        JSON.stringify({ ...usuario, nombre, email, avatar: avatarPreview })
+        JSON.stringify({ ...usuario, nombre, email, avatar: newAvatar })
       );
     } catch {
       setMensaje("Error al actualizar perfil");
@@ -83,7 +98,44 @@ export default function EditProfile() {
         <div className="edit-profile-container">
           <div className="edit-profile-card">
             <h2>Editar Perfil</h2>
+            {/* Avatar actual arriba */}
+            <img
+              src={currentAvatar}
+              alt="Avatar"
+              className="edit-profile-avatar-preview"
+              style={{
+                margin: "0 auto 2rem auto",
+                display: "block",
+                width: 120,
+                height: 120,
+              }}
+            />
             <form className="edit-profile-form" onSubmit={handleSubmit}>
+              {/* Drag & drop cuadrado solo para subir imagen */}
+              <div
+                className="edit-profile-dropzone"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDrop}
+                style={{ marginBottom: "1.5rem" }}
+              >
+                <input
+                  type="file"
+                  accept="image/jpeg"
+                  style={{ display: "none" }}
+                  id="avatar-input"
+                  onChange={handleAvatarChange}
+                />
+                <label
+                  htmlFor="avatar-input"
+                  className="edit-profile-dropzone-label"
+                  style={{ width: "100%", cursor: "pointer" }}
+                >
+                  <span>
+                    Arrastre aquí el archivo <b>.jpg</b>
+                  </span>
+                </label>
+              </div>
+
               <label>
                 Nombre:
                 <input
@@ -120,52 +172,6 @@ export default function EditProfile() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </label>
-
-              <div
-                className="edit-profile-dropzone"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                    handleAvatarChange({
-                      target: { files: e.dataTransfer.files },
-                    });
-                  }
-                }}
-              >
-                <input
-                  type="file"
-                  accept="image/jpeg"
-                  id="avatar-input"
-                  style={{ display: "none" }}
-                  onChange={handleAvatarChange}
-                />
-                <label
-                  htmlFor="avatar-input"
-                  className="edit-profile-dropzone-label"
-                >
-                  {avatarPreview ? (
-                    <img
-                      src={avatarPreview}
-                      alt="Avatar"
-                      className="edit-profile-avatar-preview"
-                    />
-                  ) : (
-                    <span>
-                      Arrastra tu imagen aquí o haz clic para seleccionar
-                      <br />
-                      <span
-                        style={{
-                          fontSize: "0.95em",
-                          color: "#ffd54f",
-                        }}
-                      >
-                        (Solo JPG, máx. 2MB)
-                      </span>
-                    </span>
-                  )}
-                </label>
-              </div>
 
               <button className="edit-profile-btn" type="submit">
                 Guardar cambios

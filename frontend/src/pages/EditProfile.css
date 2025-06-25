@@ -80,11 +80,11 @@
 
 .edit-profile-dropzone-label {
   width: 100%;
-  cursor: pointer;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .edit-profile-avatar-preview {

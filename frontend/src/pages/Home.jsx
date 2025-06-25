@@ -12,13 +12,15 @@ export default function Home() {
     navigate("/login");
   }
 
+  const BASE_URL = API_URL.replace("/api", "");
+
   return (
     <div className="home-container">
       <div className="home-avatar-wrapper">
         <img
           src={
             usuario?.avatar
-              ? `${API_URL}${usuario.avatar}`
+              ? `${BASE_URL}${usuario.avatar}`
               : "/default-avatar.jpg"
           }
           alt="Avatar"
