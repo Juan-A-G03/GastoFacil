@@ -14,6 +14,7 @@ const app = express();
 // Midleware
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 // usar las rutas
 

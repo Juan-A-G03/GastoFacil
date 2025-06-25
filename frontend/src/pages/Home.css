@@ -1,0 +1,63 @@
+.home-container {
+  max-width: 400px;
+  margin: 60px auto 0 auto;
+  background: #2f2f2f;
+  border-radius: 16px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.home-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.home-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffd54f;
+  background: #444;
+}
+
+.home-greeting {
+  color: #FFFEDB;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.home-buttons button {
+  font-size: 1.1rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background: #40e050;
+  color: #222;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.home-buttons button:hover {
+  background: #ffd54f;
+  color: #222;
+}
+
+.logout-btn {
+  background: #ff5252;
+  color: #fff;
+}
+
+.logout-btn:hover {
+  background: #c62828;
+}

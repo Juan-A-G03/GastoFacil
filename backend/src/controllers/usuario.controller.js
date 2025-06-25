@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import multer from "multer";
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "secreto_super_seguro";
+const upload = multer({ dest: "uploads/" });
 
 const CATEGORIAS_POR_DEFECTO = [
   { nombre: 'Ocio', color: '#64b5f6' },         // Celeste
@@ -66,4 +68,39 @@ export const loginUsuario = async (req, res) => {
 
   const token = jwt.sign({ id: usuario.id, email: usuario.email }, JWT_SECRET, { expiresIn: "7d" });
   res.json({ usuario, token });
+};
+
+export const actualizarUsuario = async (req, res) => {
+  const { id } = req.params;
+  const { nombre, email, password } = req.body;
+  const data = { nombre, email };
+  if (password) {
+    data.password = await bcrypt.hash(password, 10);
+  }
+  try {
+    const usuario = await prisma.usuario.update({
+      where: { id: Number(id) },
+      data,
+    });
+    res.json({ usuario });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar usuario" });
+  }
+};
+
+export const actualizarAvatar = async (req, res) => {
+  const { id } = req.params;
+  if (!req.file) {
+    return res.status(400).json({ error: "No se subió ningún archivo" });
+  }
+  const avatarUrl = `/uploads/${req.file.filename}`;
+  try {
+    const usuario = await prisma.usuario.update({
+      where: { id: Number(id) },
+      data: { avatar: avatarUrl }
+    });
+    res.json({ usuario });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar avatar" });
+  }
 };

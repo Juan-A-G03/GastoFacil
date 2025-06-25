@@ -19,6 +19,7 @@ model Usuario {
   nombre    String
   email     String    @unique
   password  String
+  avatar    String?
   gastos    Gasto[]
   tipos     TipoGasto[]
 }

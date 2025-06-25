@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -6,11 +6,12 @@ import Tipos from "./pages/Tipo";
 import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import Historico from "./pages/Historico";
+import EditProfile from "./pages/EditProfile";
+import Home from "./pages/Home";
 
 function App() {
   const location = useLocation();
-  // Oculta la navbar en login y register
-  const hideNavbar = ["/login", "/register"].includes(location.pathname);
+  const hideNavbar = ["/login", "/register", "/home"].includes(location.pathname);
 
   return (
     <>
@@ -39,6 +40,15 @@ function App() {
           element={
             <RequireAuth>
               <Historico />
+            </RequireAuth>
+          }
+        />
+        <Route path="/editar-perfil" element={<EditProfile />} />
+        <Route
+          path="/home"
+          element={
+            <RequireAuth>
+              <Home />
             </RequireAuth>
           }
         />

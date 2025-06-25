@@ -22,7 +22,7 @@ export default function Login() {
       setMensaje('✅ Login exitoso');
 
       // Redirigir o navegar (si usás react-router)
-      window.location.href = '/';
+      window.location.href = '/home';
     } catch (err) {
       setMensaje('❌ Error al iniciar sesión');
       console.error(err);

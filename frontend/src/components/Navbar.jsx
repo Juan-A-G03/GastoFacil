@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <header className={`navbar-header${open ? " navbar-open" : ""}`}>
       <Link
-        to="/"
+        to="/home"
         className="navbar-logo"
         style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
       >
@@ -72,6 +72,15 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
             >
               Histórico
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/editar-perfil"
+              className={location.pathname === "/editar-perfil" ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
+              Editar perfil
             </Link>
           </li>
           <li>

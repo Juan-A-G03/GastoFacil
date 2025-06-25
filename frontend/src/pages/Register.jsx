@@ -22,7 +22,7 @@ export default function Register() {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
       setMensaje('✅ Registro exitoso');
-      window.location.href = '/';
+      window.location.href = '/home';
     } catch (error) {
       console.error(error);
       setMensaje('❌ Error al registrarse');

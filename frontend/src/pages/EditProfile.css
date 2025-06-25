@@ -1,0 +1,125 @@
+.edit-profile-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #FFFEDB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 120px;
+}
+
+.edit-profile-card {
+  background: #2f2f2f;
+  border-radius: 16px;
+  padding: 2.5rem 3rem 2rem 3rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.edit-profile-card h2 {
+  color: #FFFEDB;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.edit-profile-form label {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.edit-profile-input {
+  background: #3a3a3a;
+  color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.1rem;
+  width: 100%;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.edit-profile-input:focus {
+  outline: 2px solid #ffd54f;
+  border-color: #ffd54f;
+}
+
+.edit-profile-dropzone {
+  border: 2px dashed #ffd54f;
+  border-radius: 10px;
+  background: #232323;
+  padding: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-profile-dropzone:hover,
+.edit-profile-dropzone:focus-within {
+  border-color: #40e050;
+  background: #282828;
+}
+
+.edit-profile-dropzone-label {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.edit-profile-avatar-preview {
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffd54f;
+  background: #444;
+}
+
+.edit-profile-btn {
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #40e050;
+  color: white;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.2s;
+  font-weight: bold;
+  width: 100%;
+}
+
+.edit-profile-btn:hover {
+  background: #2c9b37;
+}
+
+.edit-profile-message {
+  text-align: center;
+  margin-top: 1rem;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
