@@ -15,8 +15,8 @@ POST http://localhost:3000/api/usuarios/login
 Content-Type: application/json
 
 {
-  "email": "galluccij15@gmail.com",
-  "password": "juanchi03"
+  "email": "tito@mail.com",
+  "password": "tito"
 }
 
 ###TIPO GASTOS
