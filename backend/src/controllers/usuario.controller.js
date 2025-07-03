@@ -43,7 +43,12 @@ export const crearUsuario = async (req, res) => {
 
   const hashed = await bcrypt.hash(password, 10);
   const nuevo = await prisma.usuario.create({
-    data: { nombre, email, password: hashed },
+    data: { 
+      nombre,
+      email,
+      password: hashed,
+      avatar: "/uploads/avatar.png"
+    },
   });
 
   // Crea las categorías por defecto para este usuario

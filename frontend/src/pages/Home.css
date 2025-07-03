@@ -1,9 +1,10 @@
 .home-container {
-  max-width: 400px;
+  width: 100%;
+  max-width: 800px; /* antes 400px */
   margin: 60px auto 0 auto;
   background: #2f2f2f;
   border-radius: 16px;
-  padding: 2.5rem 2rem 2rem 2rem;
+  padding: 2.5rem 2rem 3rem 2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   text-align: center;
 }
@@ -15,8 +16,8 @@
 }
 
 .home-avatar {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #ffd54f;
@@ -26,26 +27,32 @@
 .home-greeting {
   color: #FFFEDB;
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 2.5rem; /* más grande */
   font-weight: bold;
+  letter-spacing: 0.5px;
 }
 
 .home-buttons {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 2rem; /* más separación */
 }
 
 .home-buttons button {
-  font-size: 1.1rem;
-  padding: 0.8rem 1.2rem;
-  border-radius: 8px;
+  font-size: 1.7rem; /* más grande */
+  padding: 1.1rem 0;
+  border-radius: 10px;
   border: none;
   background: #40e050;
   color: #222;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  letter-spacing: 0.5px;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
 }
 
 .home-buttons button:hover {

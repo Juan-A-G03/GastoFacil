@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [editNombre, setEditNombre] = useState("");
   const [editValor, setEditValor] = useState("");
   const [editTipoId, setEditTipoId] = useState("");
+  const [gastoAbiertoId, setGastoAbiertoId] = useState(null);
   const chartRef = useRef();
 
   const mesActual = new Date().toLocaleString("es-ES", { month: "long" });
@@ -159,73 +160,91 @@ export default function Dashboard() {
           <span>Acciones</span>
         </div>
         <ul>
-          {gastosMesActual.map((gasto) =>
-            editandoId === gasto.id ? (
-              <li key={gasto.id} className="dashboard-listado-row">
-                <span>
-                  <input
-                    className="dashboard-form-input"
-                    value={editNombre}
-                    onChange={e => setEditNombre(e.target.value)}
-                    placeholder="Nombre"
-                  />
-                </span>
-                <span>
-                  <select
-                    className="dashboard-form-select"
-                    value={editTipoId}
-                    onChange={e => setEditTipoId(e.target.value)}
-                  >
-                    {tipos.map(tipo => (
-                      <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
-                    ))}
-                  </select>
-                </span>
-                <span>
-                  <input
-                    className="dashboard-form-input"
-                    value={editValor}
-                    onChange={e => setEditValor(e.target.value)}
-                    placeholder="Valor"
-                  />
-                </span>
-                <span>
-                  {new Date(gasto.fecha).toLocaleDateString()}
-                </span>
-                <span>
-                  <button className="dashboard-btn-small dashboard-form-guardar" onClick={guardarEdicion}>Guardar</button>
-                  <button className="dashboard-btn-small dashboard-form-cancel" onClick={() => setEditandoId(null)}>Cancelar</button>
-                </span>
+          {gastosMesActual.map((gasto) => {
+            const abierto = gastoAbiertoId === gasto.id;
+            return (
+              <li
+                key={gasto.id}
+                className={`dashboard-listado-row${abierto ? " abierto" : ""}`}
+                style={{
+                  cursor: "pointer",
+                  background: abierto ? "#353535" : undefined,
+                  transition: "background 0.2s"
+                }}
+                onClick={() => setGastoAbiertoId(abierto ? null : gasto.id)}
+              >
+                {editandoId === gasto.id ? (
+                  <>
+                    <span>
+                      <input
+                        className="dashboard-form-input"
+                        value={editNombre}
+                        onChange={e => setEditNombre(e.target.value)}
+                        placeholder="Nombre"
+                      />
+                    </span>
+                    <span>
+                      <select
+                        className="dashboard-form-select"
+                        value={editTipoId}
+                        onChange={e => setEditTipoId(e.target.value)}
+                      >
+                        {tipos.map(tipo => (
+                          <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                        ))}
+                      </select>
+                    </span>
+                    <span>
+                      <input
+                        className="dashboard-form-input"
+                        value={editValor}
+                        onChange={e => setEditValor(e.target.value)}
+                        placeholder="Valor"
+                      />
+                    </span>
+                    <span>
+                      {new Date(gasto.fecha).toLocaleDateString()}
+                    </span>
+                    <span>
+                      <button className="dashboard-btn-small dashboard-form-guardar" onClick={guardarEdicion}>Guardar</button>
+                      <button className="dashboard-btn-small dashboard-form-cancel" onClick={() => setEditandoId(null)}>Cancelar</button>
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span>{gasto.nombre}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: "0.5rem", justifyContent: "center" }}>
+                      {gasto.tipo?.nombre}
+                      {gasto.tipo?.color && (
+                        <span
+                          style={{
+                            display: "inline-block",
+                            width: 16,
+                            height: 16,
+                            borderRadius: "50%",
+                            background: gasto.tipo.color,
+                            border: "1.5px solid #fff",
+                            marginLeft: 6
+                          }}
+                          title={gasto.tipo.color}
+                        />
+                      )}
+                    </span>
+                    <span>${gasto.valor}</span>
+                    <span>{new Date(gasto.fecha).toLocaleDateString()}</span>
+                    <span>
+                      {abierto && (
+                        <>
+                          <button className="dashboard-btn-small" onClick={e => { e.stopPropagation(); empezarEdicion(gasto); }}>✏️</button>
+                          <button className="dashboard-btn-small" onClick={e => { e.stopPropagation(); eliminarGasto(gasto.id); }}>❌</button>
+                        </>
+                      )}
+                    </span>
+                  </>
+                )}
               </li>
-            ) : (
-              <li key={gasto.id} className="dashboard-listado-row">
-                <span>{gasto.nombre}</span>
-                <span style={{ display: "flex", alignItems: "center", gap: "0.5rem", justifyContent: "center" }}>
-                  {gasto.tipo?.nombre}
-                  {gasto.tipo?.color && (
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: 16,
-                        height: 16,
-                        borderRadius: "50%",
-                        background: gasto.tipo.color,
-                        border: "1.5px solid #fff",
-                        marginLeft: 6
-                      }}
-                      title={gasto.tipo.color}
-                    />
-                  )}
-                </span>
-                <span>${gasto.valor}</span>
-                <span>{new Date(gasto.fecha).toLocaleDateString()}</span>
-                <span>
-                  <button className="dashboard-btn-small" onClick={() => eliminarGasto(gasto.id)}>❌</button>
-                  <button className="dashboard-btn-small" onClick={() => empezarEdicion(gasto)}>✏️</button>
-                </span>
-              </li>
-            )
-          )}
+            );
+          })}
         </ul>
         <form
           className="dashboard-listado-row"

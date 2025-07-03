@@ -77,6 +77,12 @@
   align-items: center;
 }
 
+.dashboard-listado-row.abierto {
+  background: #353535;
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
 /* Botones pequeños */
 .dashboard-btn-small {
   font-size: 0.95rem;
