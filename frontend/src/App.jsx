@@ -8,6 +8,8 @@ import RequireAuth from "./components/RequireAuth";
 import Historico from "./pages/Historico";
 import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
+import PartyDivider from './pages/PartyDivider.jsx';
+
 
 function App() {
   const location = useLocation();
@@ -49,6 +51,14 @@ function App() {
           element={
             <RequireAuth>
               <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/party"
+          element={
+            <RequireAuth>
+              <PartyDivider />
             </RequireAuth>
           }
         />

@@ -31,6 +31,7 @@ export default function Home() {
       <div className="home-buttons">
         <button onClick={() => navigate("/")}>Gastos del mes</button>
         <button onClick={() => navigate("/historico")}>Historial de gastos</button>
+        <button onClick={() => navigate("/party")}>Party Divider</button>
         <button onClick={() => navigate("/tipos")}>Editar categorías de gasto</button>
         <button onClick={() => navigate("/editar-perfil")}>Editar perfil</button>
         <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>

@@ -1,10 +1,10 @@
 .home-container {
   width: 100%;
-  max-width: 800px; /* antes 400px */
-  margin: 60px auto 0 auto;
+  max-width: 480px; /* antes 800px */
+  margin: 40px auto 0 auto;
   background: #2f2f2f;
   border-radius: 16px;
-  padding: 2.5rem 2rem 3rem 2rem;
+  padding: 2rem 1.2rem 2.2rem 1.2rem; /* menos padding */
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   text-align: center;
 }
@@ -26,8 +26,8 @@
 
 .home-greeting {
   color: #FFFEDB;
-  margin-bottom: 2rem;
-  font-size: 2.5rem; /* más grande */
+  margin-bottom: 1.3rem;
+  font-size: 2rem; /* más chico */
   font-weight: bold;
   letter-spacing: 0.5px;
 }
@@ -35,12 +35,12 @@
 .home-buttons {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* más separación */
+  gap: 1.1rem; /* menos separación */
 }
 
 .home-buttons button {
-  font-size: 1.7rem; /* más grande */
-  padding: 1.1rem 0;
+  font-size: 1.15rem; /* más chico */
+  padding: 0.7rem 0;
   border-radius: 10px;
   border: none;
   background: #40e050;
@@ -49,7 +49,7 @@
   font-weight: bold;
   transition: background 0.2s, color 0.2s;
   width: 100%;
-  max-width: 680px;
+  max-width: 340px;
   margin: 0 auto;
   letter-spacing: 0.5px;
   font-family: 'Segoe UI', 'Arial', sans-serif;

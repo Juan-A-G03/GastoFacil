@@ -94,17 +94,34 @@
   margin-bottom: 1.2rem;
 }
 
+.navbar-link,
 .navbar-slide a {
   color: #fff;
   font-size: 1.1rem;
   text-decoration: none;
   transition: color 0.2s;
+  width: 100%;
+  display: block;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit; /* Esto asegura que use la misma fuente */
+  cursor: pointer;
+  font-weight: normal; /* <-- igual que los links por defecto */
 }
 
+.navbar-link:hover,
+.navbar-link.active,
 .navbar-slide a.active,
 .navbar-slide a:hover {
   font-weight: bold;
   color: #ffd54f;
+}
+
+.navbar-link.navbar-logout {
+  /* Elimina font-weight: bold aquí */
+  color: #fff;
 }
 
 /* Fondo oscuro cuando el menú está abierto */
@@ -141,29 +158,4 @@
 
 .navbar-header.navbar-open .navbar-toggle {
   display: none;
-}
-
-.navbar-link {
-  color: #fff;
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: color 0.2s;
-  width: 100%;
-  display: block;
-  text-align: left;
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-}
-
-.navbar-link:hover,
-.navbar-link.active {
-  font-weight: bold;
-  color: #ffd54f;
-}
-
-.navbar-link.navbar-logout {
-  font-weight: bold;
 }

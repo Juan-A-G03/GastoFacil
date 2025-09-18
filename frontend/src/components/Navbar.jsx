@@ -76,6 +76,15 @@ export default function Navbar() {
           </li>
           <li>
             <Link
+              to="/party"
+              className={location.pathname === "/party" ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
+              Party Divider
+            </Link>
+          </li>
+          <li>
+            <Link
               to="/editar-perfil"
               className={location.pathname === "/editar-perfil" ? "active" : ""}
               onClick={() => setOpen(false)}

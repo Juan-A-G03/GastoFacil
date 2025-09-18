@@ -8,6 +8,7 @@ dotenv.config();
 import usuarioRoutes from "./routes/usuario.routes.js";
 import gastoRoutes from "./routes/gasto.routes.js";
 import tipoRoutes from "./routes/tipo.routes.js";
+import partyRoutes from "./routes/party.routes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/gastos", gastoRoutes);
 app.use("/api/tipos", tipoRoutes);
+app.use("/api/party", partyRoutes);
 
 // inicio del servidor
 const PORT = process.env.PORT || 3000;
