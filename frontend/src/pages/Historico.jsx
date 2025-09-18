@@ -9,6 +9,7 @@ import "./Historico.css"; // Usa tu CSS propio para histórico
 export default function Historico() {
   const [historico, setHistorico] = useState({});
   const [mesSeleccionado, setMesSeleccionado] = useState(null);
+  const [orden, setOrden] = useState({ campo: "fecha", asc: false });
 
   const token = localStorage.getItem("token");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -35,6 +36,28 @@ export default function Historico() {
     const nombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     return `${nombres[parseInt(m, 10) - 1]} ${a}`;
+  }
+
+  function ordenarGastos(gastos, campo, asc) {
+    return [...gastos].sort((a, b) => {
+      let vA, vB;
+      if (campo === "nombre") {
+        vA = a.nombre?.toLowerCase() || "";
+        vB = b.nombre?.toLowerCase() || "";
+      } else if (campo === "tipo") {
+        vA = a.tipo?.nombre?.toLowerCase() || "";
+        vB = b.tipo?.nombre?.toLowerCase() || "";
+      } else if (campo === "valor") {
+        vA = a.valor;
+        vB = b.valor;
+      } else if (campo === "fecha") {
+        vA = new Date(a.fecha);
+        vB = new Date(b.fecha);
+      }
+      if (vA < vB) return asc ? -1 : 1;
+      if (vA > vB) return asc ? 1 : -1;
+      return 0;
+    });
   }
 
   return (
@@ -72,13 +95,49 @@ export default function Historico() {
                 <div className="historico-tarjeta-body">
                   <div className="dashboard-listado-contenedor">
                     <div className="dashboard-listado-header">
-                      <span>Nombre</span>
-                      <span>Tipo</span>
-                      <span>Valor</span>
-                      <span>Fecha</span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          setOrden(o =>
+                            o.campo === "nombre" ? { campo: "nombre", asc: !o.asc } : { campo: "nombre", asc: true }
+                          )
+                        }
+                      >
+                        Nombre {orden.campo === "nombre" ? (orden.asc ? "▲" : "▼") : ""}
+                      </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          setOrden(o =>
+                            o.campo === "tipo" ? { campo: "tipo", asc: !o.asc } : { campo: "tipo", asc: true }
+                          )
+                        }
+                      >
+                        Tipo {orden.campo === "tipo" ? (orden.asc ? "▲" : "▼") : ""}
+                      </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          setOrden(o =>
+                            o.campo === "valor" ? { campo: "valor", asc: !o.asc } : { campo: "valor", asc: false }
+                          )
+                        }
+                      >
+                        Valor {orden.campo === "valor" ? (orden.asc ? "▲" : "▼") : ""}
+                      </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          setOrden(o =>
+                            o.campo === "fecha" ? { campo: "fecha", asc: !o.asc } : { campo: "fecha", asc: false }
+                          )
+                        }
+                      >
+                        Fecha {orden.campo === "fecha" ? (orden.asc ? "▲" : "▼") : ""}
+                      </span>
                     </div>
                     <ul>
-                      {gastosMes.map(g => (
+                      {ordenarGastos(gastosMes, orden.campo, orden.asc).map(g => (
                         <li key={g.id} className="dashboard-listado-row">
                           <span>{g.nombre}</span>
                           <span>{g.tipo?.nombre}</span>
