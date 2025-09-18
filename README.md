@@ -10,9 +10,15 @@ Para que cualquier persona que descargue tu repositorio pueda instalar y correr 
 
 Esto instalará todas las dependencias de backend y frontend gracias al pnpm-workspace.yaml.
 
+
 Luego, en dos terminales diferentes:
 
 --> c:\GastoFacil> cd backend
+
+//base de datos sqlite con prisma dentro de la carpeta backend
+npx prisma init --> crea los archivos para generar la base de datos
+
+pnpm prisma migrate dev --name init --> para iniciar la base de datos y crear las tablas
 
 --> c:\GastoFacil\backend> pnpm dev
 
@@ -29,12 +35,3 @@ pnpm dev --> para correr el frontend | mostrara:
   ➜  press h + enter to show help
 
 haz ctrl + click derecho en el link que te llevara a la pagina
-
-//base de datos sqlite con prisma
-npx prisma init --> crea los archivos para generar la base de datos
-
-pnpm prisma migrate dev --name init --> para iniciar la base de datos y crear las tablas
-
-
-omitir este paso
-npx prisma migrate dev --name add-color-to-tipoGasto | agrega un atrubuto to Tabla
